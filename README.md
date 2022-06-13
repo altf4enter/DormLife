@@ -47,3 +47,7 @@ and test if everything ist working correctly.
 
 For seeding the DB inside the mongo container uncomment the seed section in the docker-compose.yml before executing.
 Since we are also using a mongo-express container, you can use the GUI under localhost:8085 to interact with the DB.
+
+## Login
+
+You can signup with own credentials or use the user with email test@test.de and password test. 
