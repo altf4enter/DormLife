@@ -1,4 +1,4 @@
-# dorm-hub
+# dorm-life
 
 ## Requirements
 - node
