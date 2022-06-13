@@ -116,11 +116,12 @@ const seedDb = async () => {
 
     let text = "### Die Turnier AG spielt gerne turniere";
     const wikiArticle1 = new Wiki.WikiArticle({
+        author: user.id,
         title: "Turnier AG", text: text,
         textAsHtml: md.render(text)
     });
     text = "Die Schlefaz AG guckt Filme.";
-    const wikiArticle2 = new Wiki.WikiArticle({ title: "Schlefaz AG", text: text, textAsHtml: md.render(text) });
+    const wikiArticle2 = new Wiki.WikiArticle({author: user.id, title: "Schlefaz AG", text: text, textAsHtml: md.render(text) });
     await wikiArticle1.save();
     await wikiArticle2.save();
     const wikiCategory = new Wiki.WikiCategory({

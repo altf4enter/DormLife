@@ -6,7 +6,7 @@
       <div class="image">
         <img class="img-fluid"  src="https://images-eu.ssl-images-amazon.com/images/I/418cEZfh8-L.jpg" alt="minecraft image" />
       </div>
-      <h2>dorm-hub.de</h2>
+      <h2>dorm-life.de</h2>
     </div>
     <div v-if="loading">
         <p>Loading ...</p>

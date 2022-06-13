@@ -1,10 +1,7 @@
 <template>
   <div>
     <h1>Wiki</h1>
-    <div>
-      <a v-if="!editing" href="#" @click="editing = !editing">Edit</a>
-      <a href="#" @click="editing = !editing" v-else>End editing</a>
-    </div>
+
 
     <!--
       TODO write help page
@@ -14,28 +11,16 @@
     <div class="with-sidebar">
       <div class="sidebar">
         <div class="list-group">
-          <category-item
-            v-for="category in wikiContent"
-            :key="category.id"
-            v-on:updatedwikidata="fetchData"
-            :thisCategory="category"
-          ></category-item>
+          <category-item v-for="category in wikiContent" :key="category.id" v-on:updatedwikidata="fetchData"
+            :thisCategory="category"></category-item>
           <li v-if="editing" class="list-group-item">
-            <a href="#" v-if="!addingCategory" @click="addingCategory = true"
-              >Add Category</a
-            >
+            <a href="#" v-if="!addingCategory" @click="addingCategory = true">Add Category</a>
             <div v-else class="form-group">
               <input type="text" v-model="newCategoryInput" />
-              <button
-                class="btn btn-primary"
-                @click="addCategory(newCategoryInput)"
-              >
+              <button class="btn btn-primary" @click="addCategory(newCategoryInput)">
                 Add
               </button>
-              <button
-                class="btn btn-outline-primary"
-                @click="addingCategory = false"
-              >
+              <button class="btn btn-outline-primary" @click="addingCategory = false">
                 Dismiss
               </button>
             </div>
@@ -44,10 +29,14 @@
       </div>
 
       <div class="content">
-        <content-item
-          v-on:updatedwikidata="fetchData"
-        ></content-item>
+        <content-item v-on:updatedwikidata="fetchData"></content-item>
       </div>
+    </div>
+
+
+    <div>
+      <a v-if="!editing" href="#" @click="editing = !editing">Edit</a>
+      <a href="#" @click="editing = !editing" v-else>End editing</a>
     </div>
   </div>
 </template>
@@ -80,7 +69,6 @@ export default {
   },
   methods: {
     async fetchData() {
-      console.log("fetch data")
       let url = process.env.VUE_APP_HOST || "http://localhost:8081/";
       const res = await fetch(url + "wiki/all");
       const resData = await res.json();
@@ -89,7 +77,9 @@ export default {
         console.log(error.message);
         throw error;
       }
-      this.wikiContent = resData;
+      this.wikiContent = resData.sort((a,b)=> {
+            return a.name.localeCompare(b.name);
+          });
       this.loading = false;
       this.updateSelectedArticle();
       this.$forceUpdate();
@@ -132,11 +122,11 @@ export default {
   gap: var(--s1);
 }
 
-.with-sidebar > :first-child {
+.with-sidebar> :first-child {
   flex-grow: 1;
 }
 
-.with-sidebar > :last-child {
+.with-sidebar> :last-child {
   flex-basis: 0;
   flex-grow: 999;
   min-width: 60%;
