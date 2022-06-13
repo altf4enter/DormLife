@@ -1,1 +1,1 @@
-# dorm-hub
+# dorm-life
